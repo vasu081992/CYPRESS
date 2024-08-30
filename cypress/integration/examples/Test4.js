@@ -81,7 +81,7 @@ describe('My Fourth test suite', function(){
 
          //TO VERIFY DISPLAYED OR HIDDEN ELEMENTS USING CYPRESS
 
-         
+
 
 
          cy.get('#displayed-text').should('be.visible') // initially visible check 
@@ -102,6 +102,28 @@ describe('My Fourth test suite', function(){
 
 
          cy.get('#displayed-text').should('have.css','display','block')
+
+
+         //RADIO BUTTON
+
+
+         cy.get('input[value="radio2"]').click()
+
+
+         //assertion checks
+
+       
+         cy.get('input[value="radio2"]').should('be.checked')
+
+
+         //ALTERNATE METHOD using check() method
+
+
+         cy.get('input[value="radio3"]').check()
+
+         cy.get('input[value="radio3"]').should('be.checked')
+
+
 
 
   })
