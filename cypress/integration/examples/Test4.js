@@ -14,7 +14,7 @@ describe('My Fourth test suite', function(){
     cy.get('#checkBoxOption1').check().should('be.checked')
 
  
-     //to check if correctly we have checked first check box correctly or the right checkbox ie option1
+     //to check if correctly we have checked first check box correctly or the right checked checkbox ie option1
 
      
      cy.get('#checkBoxOption1').check().should('be.checked').and('have.value',"option1")
