@@ -1,4 +1,5 @@
-/// <reference types="Cypress"/>
+/// <reference types="Cypress" />
+
 
 describe('My Nineth test suite', function(){
 
