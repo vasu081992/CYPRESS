@@ -16,6 +16,7 @@ describe('My first test', function(){
     //using parent child chaining 
 
     cy.get('.products').find('.product').should('have.length',4)
+
       cy.get('.products').find('.product').eq(1).contains('ADD TO CART').click()
       cy.get('.products').find('.product').then((elem)=>{
        cy.log(elem)
@@ -44,8 +45,6 @@ describe('My first test', function(){
 
     // let abc = cy.get('.brand').text()
     // cy.log(abc)
-
-
 
 
 

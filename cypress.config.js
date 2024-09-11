@@ -5,7 +5,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    specPattern:'cypress/integration/examples/Test11.js',
+    specPattern:'cypress/integration/examples/Revision/Test4-Dynamic-Dropdown.js',
     viewportHeight:1000,
     viewportWidth:1200
   },
