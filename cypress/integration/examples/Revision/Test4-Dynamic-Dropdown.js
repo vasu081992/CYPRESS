@@ -1,6 +1,6 @@
-describe('My Fourth test suite', function(){
+describe('My test suite', function(){
 
-  it('Checkboxes Tests',function(){
+  it('Dynamic dropdown Tests',function(){
 
     cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
 
