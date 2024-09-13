@@ -10,10 +10,11 @@ describe('My Nineth test suite', function(){
 
     cy.get('#opentab').then((item)=>{
 
-      let href1 = item.prop('href')
+      let href1 = item.attr('href')
+
+      cy.log(href1)
       
       cy.visit(href1)
-
 
       cy.origin(href1,()=>{
         cy.get('#navbarSupportedContent a[href="about.html"]').click()
