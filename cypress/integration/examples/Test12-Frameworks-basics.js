@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 import HomePage from "../pageObjects/HomePage"
+import ProductPage from "../pageObjects/productsPage"
 
 
 
@@ -21,12 +22,11 @@ describe('Framework Basic test',()=>
 
 
       it('First framework Test', function(){
+
    
         const homePage = new HomePage() //creating a new object from the class
-
-
+        const productPage = new ProductPage()
         cy.visit('https://rahulshettyacademy.com/angularpractice/')
- 
         homePage.getInputField().type(this.data.name)
 
         //or
@@ -97,13 +97,53 @@ describe('Framework Basic test',()=>
 
        homePage.getShopButton().click()
         
-        this.data.productName.forEach((item)=>{
+        this.data.productName.forEach((item)=>{ //productName is an array in fixtures file so we use forEach to loop over it and call selectProduct custom function everytime
 
           cy.selectProduct(item)
 
 
         })
 
+
+       productPage.getCheckoutButton().click()
+
+       let sum=0
+       cy.get('tr td:nth-child(4) strong').each(($el,index,$list)=>{
+        let value = $el.text()
+        let number = value.split(' ')
+        let finalNum = Number(number[1])
+        cy.log(finalNum)
+        sum+=finalNum;
+       })
+
+       cy.get('h3 strong').then(($el,index,$list)=>{
+        let totalValue = $el.text()
+        let number = totalValue.split(' ')
+        let finalNum = Number(number[1])
+        
+        expect(sum).to.equal(finalNum)
+       })
+
+       productPage.getFinalCheckout().click()
+
+       productPage.getInputCountry().type('India')
+     
+      // cy.wait(6000) // changed defaultCommandTimeout to 6 seconds wait in cypress.config.js
+
+      cy.get('div.suggestions li',{timeout:6000}).click()
+
+        cy.get('#checkbox2').check({force:true})
+
+        cy.get('body').should('not.include.text','Success!')
+
+        cy.get('input[type="submit"]').click()
+
+        //assertion --> to check for success message post submit click 
+
+        cy.get('div.alert').should('include.text','Success!')
+
+     
+    
         })
 
       })
