@@ -26,7 +26,8 @@ describe('Framework Basic test',()=>
    
         const homePage = new HomePage() //creating a new object from the class
         const productPage = new ProductPage()
-        cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        cy.visit(Cypress.env('url')+"/angularpractice/")
+        //cy.visit('https://rahulshettyacademy.com/angularpractice/')
         homePage.getInputField().type(this.data.name)
 
         //or

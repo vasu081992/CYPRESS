@@ -4,7 +4,7 @@ describe('My Seventh test suite', function(){
 
   it('Table Tests',function(){
 
-    cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
+    cy.visit(Cypress.env('url')+"/AutomationPractice/")
 
     cy.get('tr td:nth-child(2)').each(($el,index,$list)=>{
    
