@@ -4,7 +4,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "e2e:chrome": "cypress run --browser chrome"
+    "e2e:chrome": "cypress run --headless --browser chrome",
+    "headTest": "npx cypress run --headed",
+    "recordDashboardTest": "npx cypress run --record --key dd9b313a-4a76-4b7a-9d88-ee8e8bfa7b99",
+    "revision": "npx cypress run --spec \"cypress/integration/examples/Revision/Test1.js\"",
+    "endtoend": "npx cypress run --spec \"cypress/integration/examples/Test12-Frameworks-basics.js\""
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +17,9 @@
     "cypress": "^13.13.3",
     "cypress-iframe": "^1.0.1",
     "cypress-mochawesome-reporter": "^3.8.2"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
+    "@cypress/browserify-preprocessor": "latest"
   }
 }
