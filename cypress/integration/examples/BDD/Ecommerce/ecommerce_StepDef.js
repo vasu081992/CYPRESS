@@ -1,14 +1,30 @@
 import { When, Then, Given } from "@badeball/cypress-cucumber-preprocessor";
-import HomePage from "../pageObjects/HomePage"
-import ProductPage from "../pageObjects/productsPage"
+import HomePage from "../../../pageObjects/HomePage"
+import ProductPage from "../../../pageObjects/productsPage"
+import './beforeEach';
+//const { Before } = require('@badeball/cypress-cucumber-preprocessor');
 
-  
+
 const homePage = new HomePage() //creating a new object from the class
 const productPage = new ProductPage()
 
+let name 
+let gender
 
 
-Given('I open the e commerce website',()=>{
+// Before(function(){
+  
+//   cy.fixture('example').then((data)=>{
+
+//     this.data = data // here left side data refers to global mocha object which makes the right side resolved data available throughout the test suite
+
+//     //else we need to keep using cy.fixture everytime in each it block
+
+// })
+// })
+
+
+Given('I open the e commerce website',function(){ 
 
   cy.visit(Cypress.env('url')+"/angularpractice/")
 
@@ -17,7 +33,7 @@ Given('I open the e commerce website',()=>{
 //When I add items to cart 
 
 
-When('When I add items to the cart',()=>{
+When('I add items to the cart',function(){
   homePage.getShopButton().click()
         
   this.data.productName.forEach((item)=>{ //productName is an array in fixtures file so we use forEach to loop over it and call selectProduct custom function everytime
@@ -28,12 +44,13 @@ When('When I add items to the cart',()=>{
   })
 
   productPage.getCheckoutButton().click()
-
+  
 })
-  And('I validate the total price of the cart',()=>{
 
-    let sum=0
-    cy.get('tr td:nth-child(4) strong').each(($el,index,$list)=>{
+When('I validate the total price of the cart',function(){
+
+     let sum=0
+     cy.get('tr td:nth-child(4) strong').each(($el,index,$list)=>{
      let value = $el.text()
      let number = value.split(' ')
      let finalNum = Number(number[1])
@@ -48,11 +65,13 @@ When('When I add items to the cart',()=>{
      
      expect(sum).to.equal(finalNum)
     })
-    productPage.getFinalCheckout().click()
+
 
   })
 
-  Then('Select the country and submit and verify the Success message',()=>{
+  Then('Select the country and submit and verify the Success message',function(){
+
+    productPage.getFinalCheckout().click()
     productPage.getInputCountry().type('India')
      
     // cy.wait(6000) // changed defaultCommandTimeout to 6 seconds wait in cypress.config.js
@@ -72,23 +91,32 @@ When('When I add items to the cart',()=>{
   })
 
 
-  When('I fill the form details completely',()=>{
+  When('I fill the form details completely',function(dataTable){
 
-    homePage.getInputField().type(this.data.name)
+    //homePage.getInputField().type(this.data.name)
+
+    //array will be like [[name,gender],[Vineela,Female]]
+
+    name = dataTable.rawTable[1][0] 
+    gender = dataTable.rawTable[1][1]
+
+    homePage.getInputField().type(dataTable.rawTable[1][0]) // we are taking second array first index
         //cy.get('form input[name="name"]').type(' Vineela Devi')
 
         homePage.getinputEmailField().type('vasudevan29.92@gmail.com')
 
        homePage.getPasswordField().type('vasu12345')
 
-        homePage.getGender().select(this.data.gender)
-
+        //homePage.getGender().select(this.data.gender)
+        homePage.getGender().select(dataTable.rawTable[1][1])// we are taking second array second index
         homePage.getRadio().click()
  
   })
 
-  Then('Validate the form behaviour',()=>{
-    homePage.getTwowayDataBinding().should('have.value',this.data.name)
+  When('Validate the form behaviour',function(){
+
+    homePage.getTwowayDataBinding().should('have.value',name) //name declared globally and initialised with cucumber data table feature
+    homePage.getGender().should('have.value',gender)
 
 
     //assertion to check if we have typed min of 2 characters in input box 
@@ -113,7 +141,7 @@ When('When I add items to the cart',()=>{
 
   })
 
-  Then('select the shop page',()=>{
+  Then('select the shop page',function(){
 
     homePage.getShopButton().click()
 

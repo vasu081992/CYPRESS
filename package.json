@@ -10,6 +10,12 @@
     "revision": "npx cypress run --spec \"cypress/integration/examples/Revision/Test1.js\"",
     "endtoend": "npx cypress run --spec \"cypress/integration/examples/Test12-Frameworks-basics.js\""
   },
+  "cypress-cucumber-preprocessor": {
+    "json": {
+      "enabled": true,
+      "output": "cypress/cucumberReports/result.json"
+    }
+  },
   "author": "",
   "license": "ISC",
   "description": "",
@@ -20,6 +26,7 @@
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
-    "@cypress/browserify-preprocessor": "latest"
+    "@cypress/browserify-preprocessor": "latest",
+    "multiple-cucumber-html-reporter": "^3.7.0"
   }
 }
