@@ -38,8 +38,9 @@ module.exports = defineConfig({
    openMode:0,
   },
   e2e: {
-
-    specPattern:'cypress/integration/examples/BDD/*.feature',
+  
+    //specPattern:'cypress/integration/examples/BDD/*.feature',
+    specPattern:'cypress/integration/examples/Test16-SessionLogin.js',
     viewportHeight:1000,
     viewportWidth:1200,
     setupNodeEvents
