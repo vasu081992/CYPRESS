@@ -19,11 +19,12 @@ it('Mocking Network Response Test1',()=>{
           "book_name": "RestAssured with Java",
           "isbn": "BSG",
           "aisle": "2302"
-      },{
-        "book_name": "Cypress with JS AND CUCUMBER",
-        "isbn": "BSG2",
-        "aisle": "23022"
-      }],
+       },{
+         "book_name": "Cypress with JS AND CUCUMBER",
+         "isbn": "BSG2",
+         "aisle": "23022"
+     }
+    ],
 
 }).as('bookRetrievals')
 
@@ -49,11 +50,10 @@ cy.wait('@bookRetrievals').then(({request,response})=>{
 })
 
 
-//cy.get('p').should('have.text','Oops only 1 Book available')
+//cy.get('p').should('have.text','Oops only 1 Book available') // UNCOMMENT if we are stubbing only with one response
 
 
-cy.get('p').should('not.exist');
-
+cy.get('p').should('not.exist'); //uncomment this if we are gonna stub 2 responses ie we wont see error any more
 
 })
 

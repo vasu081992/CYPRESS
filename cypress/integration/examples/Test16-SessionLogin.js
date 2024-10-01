@@ -1,7 +1,8 @@
 /// <reference types="Cypress" />
 
+const neatCSV =  require('neat-csv')
 
-
+let productName
 describe('JWT Session',()=>{
 
 
@@ -21,6 +22,9 @@ describe('JWT Session',()=>{
   })
   })
 
+  cy.get('.card-body b').eq(1).then(function(ele){
+    productName = ele.text()
+  })
 cy.get('.card-body button:last-of-type').eq(1).click()
 
 cy.get('button[routerlink*=cart]').click()
@@ -49,6 +53,16 @@ cy.wait(2000)
 
 cy.contains('.order-summary button', 'Click To Download Order Details in CSV').click();
 
+Cypress.config('fileServerFolder')
+cy.readFile(Cypress.config('fileServerFolder')+'/cypress/downloads/order-invoice_vasudevan29.92.csv').then(async function(text){
+
+const csv =  await neatCSV(text) // we wait here to get promise to be resolved and then proceed
+
+const actualProductCSV=csv[0]["Product Name"]
+
+ expect(productName).to.equal(actualProductCSV)
   })
-  
+
+
+})
   })
