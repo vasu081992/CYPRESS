@@ -41,20 +41,41 @@ cy.get('h4.card-title').each(($el,index,$list)=>{
 
 })
 
+// Cypress.Commands.add('LoginAPI',()=>{
+
+//   cy.request('POST','https://rahulshettyacademy.com/api/ecom/auth/login',
+//     {
+//       "userEmail":"vasudevan29.92@gmail.com", // this uname and password is payload
+//       "userPassword":"Vasu@5555"
+//     }
+//   ).then(function(response){
+
+//     expect(response.status).to.eq(200)
+
+//     Cypress.env('token',response.body.token)
+    
+//   })
+
+
+
+// })
+
+
 Cypress.Commands.add('LoginAPI',()=>{
 
-  cy.request('POST','https://rahulshettyacademy.com/api/ecom/auth/login',
-    {
-      "userEmail":"vasudevan29.92@gmail.com",
-      "userPassword":"Vasu@12345"
-    }
-  ).then(function(response){
+cy.request('POST','https://rahulshettyacademy.com/api/ecom/auth/login',{
+  "userEmail":"vasudevan29.92@gmail.com",
+  "userPassword":"Vasu@5555"
+}).then(function(res){
 
-    expect(response.status).to.eq(200)
+  expect(res.status).to.eq(200)
 
-    Cypress.env('token',response.body.token)
-    
-  })
+  expect(res.body.message).to.eq('Login Successfully')
+
+  Cypress.env('token',res.body.token)
+
+})
+
 
 
 
