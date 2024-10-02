@@ -57,7 +57,9 @@ cy.readFile(Cypress.config("fileServerFolder")+'/cypress/downloads/order-invoice
 
   const csv = await neatCSV(text)
 
- expect(csv[0]["Product Name"]).to.eq(productName)
+  const actualProductCSV = csv[0]["Product Name"]
+
+  expect(actualProductCSV).to.eq(productName)
 
 
 })

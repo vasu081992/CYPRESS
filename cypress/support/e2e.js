@@ -22,3 +22,7 @@ import './commands'
 
 import 'cypress-mochawesome-reporter/register';
  
+
+import sqlServer from 'cypress-sql-server';
+sqlServer.loadDBCommands();
+
