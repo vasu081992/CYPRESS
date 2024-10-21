@@ -1,5 +1,7 @@
 const { defineConfig } = require("cypress");
 const sqlServer = require('cypress-sql-server');
+const excelToJson = require('convert-excel-to-json');
+const fs = require('fs');
 
 
 const {
@@ -33,6 +35,19 @@ async function setupNodeEvents(on, config) {
   on("file:preprocessor", preprocessor(config));
 
 
+  on('task',{
+    excelToJsonConverter(filePath){
+    const result = excelToJson({
+      source: fs.readFileSync(filePath) 
+    })
+
+    return result //ie the excel is converted to js object 
+   }
+
+
+  })
+
+
   //require('cypress-mochawesome-reporter/plugin')(on);
 
   // Make sure to return the config object as it might have been modified by the plugin.
@@ -56,9 +71,11 @@ module.exports = defineConfig({
   e2e: {
   
     //specPattern:'cypress/integration/examples/BDD/*.feature',
-    specPattern:'cypress/integration/examples/Test17-cypressDB.js',
+    specPattern:'cypress/integration/examples/Test18-excel-validations.js',
     viewportHeight:1000,
     viewportWidth:1200,
     setupNodeEvents
+
   },
+
 });

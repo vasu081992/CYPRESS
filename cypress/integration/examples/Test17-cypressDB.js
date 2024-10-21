@@ -18,8 +18,10 @@ describe('Cypress DB Interaction ',()=>{
   it('DB Interaction',()=>{ // using the data from database to type in the web app 
 
     cy.visit('https://rahulshettyacademy.com/client/')
+
+    cy.log("Manviths email",data[2][4])
    
-    cy.get('input[type="email"]').type(data[1][4])
+    cy.get('input[type="email"]').type(data[1][4]);
 
     cy.get('input[type="password"]').type(data[1][5])
 
